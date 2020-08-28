@@ -1,17 +1,17 @@
 import numpy as np
 
 # Filtering Data
-arr = np.array([[0, 2, 3],
-                [1, 3, -6],
-                [-3, -2, 1]])
-
-print(f'Array: \n{arr}')
-print(f'\nArray == 3: \n{arr == 3}')
-print(f'\nArray > 0: \n{arr > 0}')
-print(f'\nArray != 1: \n{arr != 1}')
-
-# Negação do array anterior
-print(f'\nArray ~ != 1: \n{~(arr != 1)}')
+# arr = np.array([[0, 2, 3],
+#                 [1, 3, -6],
+#                 [-3, -2, 1]])
+#
+# print(f'Array: \n{arr}')
+# print(f'\nArray == 3: \n{arr == 3}')
+# print(f'\nArray > 0: \n{arr > 0}')
+# print(f'\nArray != 1: \n{arr != 1}')
+#
+# # Negação do array anterior
+# print(f'\nArray ~ != 1: \n{~(arr != 1)}')
 
 # # # Is a NaN
 # arr = np.array([[0, 2, np.nan],
@@ -79,3 +79,28 @@ print(f'\nArray ~ != 1: \n{~(arr != 1)}')
 # has_positive = np.any(arr > 0, axis=1)
 # print(has_positive)
 # print(repr(arr[np.where(has_positive)]))
+
+# Time to code
+def get_positives(data):
+    x, y = np.where(data > 0)
+    return data[x, y]
+
+
+def replace_zeros(data):
+    zeros = np.zeros_like(data)
+    replace = np.where(data > 0, data, zeros)
+    return replace
+
+
+def coin_flip_filter(data):
+    coin_flip = np.random.randint(2, size=data.shape)
+    bool_coin_flip = coin_flip.astype(np.bool).copy()
+    return np.where(bool_coin_flip, data, 1)
+
+
+arr = np.array([[1, 2, 3],
+                [-1, -2, -3],
+                [1, 2, 3]])
+print(get_positives(arr))
+print(replace_zeros(arr))
+print(coin_flip_filter(arr))
